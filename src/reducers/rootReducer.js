@@ -6,7 +6,6 @@ import authReducer from "./authReducer";
 const rootReducer = combineReducers({
   auth: authReducer,
   firebase: firebaseReducer,
-  // firestore: firestoreReducer // <- needed if using firestore
 });
 
 export default rootReducer;

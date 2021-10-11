@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { uploadVideo } from "../../actions/videos";
 
 const UploadVideo = ({ uploadVideo }) => {
-  const [selectedFiles, setSelectedFiles] = useState();
+  const [selectedFiles, setSelectedFiles] = useState(new Blob());
   const [videoTitle, setVideoTitle] = useState("");
 
   const selectFile = (event) => {
@@ -14,7 +14,7 @@ const UploadVideo = ({ uploadVideo }) => {
 
   const upload = (e) => {
     e.preventDefault();
-    uploadVideo(selectedFiles);
+    uploadVideo(selectedFiles, videoTitle);
   };
 
   return (
