@@ -3,7 +3,7 @@ import React from "react";
 const PlayVideo = () => {
   return (
     <div>
-      <p>PlayVideo</p>
+      <p>Edit uploaded video</p>
     </div>
   );
 };
