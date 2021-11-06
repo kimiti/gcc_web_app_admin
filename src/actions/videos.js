@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "uuid";
+
 // export function uploadVideo(selectedFiles, videoTitle) {
 //   return (dispatch, getState, getFirebase) => {
 //     const firebase = getFirebase();
@@ -21,19 +23,37 @@
 
 // Upload Video
 export const uploadVideo =
-  (selectedFiles, videoTitle) => async (dispatch, getState, getFirebase) => {
+  (selectedFiles, videoTitle) => (dispatch, getState, getFirebase) => {
     const firebase = getFirebase();
 
     const storageRef = firebase.storage().ref();
-    const fileRef = await storageRef
-      .child("videos/" + selectedFiles.name)
+    const fileRef = storageRef
+      .child(`videos/${uuidv4()}/${selectedFiles.name}`)
       .put(selectedFiles);
-    const downloadUrl = await fileRef.ref.getDownloadURL();
-    console.log(downloadUrl);
 
-    const docRef = await firebase.firestore().collection("videos").add({
-      videoTitle: selectedFiles.name,
-      videoUrl: downloadUrl,
-    });
-    console.log("Document written with ID: ", docRef.id);
+    fileRef.on(
+      "state_changed",
+      (snapshot) => {
+        // Observe state change events such as progress, pause, and resume
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        var progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        // console.log("Upload is " + progress + "% done");
+        dispatch({ type: "UPLOAD_PROGRESS", progress });
+      },
+      (error) => {
+        // Handle unsuccessful uploads
+      },
+      async () => {
+        const downloadUrl = await fileRef.snapshot.ref.getDownloadURL();
+        // console.log(downloadUrl);
+
+        await firebase.firestore().collection("videos").add({
+          videoTitle: videoTitle,
+          videoUrl: downloadUrl,
+        });
+        // console.log("Document written with ID: ", docRef.id);
+      }
+    );
   };
