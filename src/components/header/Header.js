@@ -17,10 +17,10 @@ const Header = ({ logOut }) => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
-              <LinkContainer to="/play_video">
+              <LinkContainer to="/view">
                 <Nav.Link>Play_Videos</Nav.Link>
               </LinkContainer>
-              <LinkContainer to="/upload_video">
+              <LinkContainer to="/upload">
                 <Nav.Link>Upload_Videos</Nav.Link>
               </LinkContainer>
               <LinkContainer to="/register">

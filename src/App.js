@@ -9,6 +9,9 @@ import LoginPage from "./screens/auth/login/Login";
 import RegisterPage from "./screens/auth/register/Register";
 import UploadVideo from "./screens/videosPage/UploadVideo";
 import PlayVideo from "./screens/videosPage/PlayVideo";
+import UploadPdf from "./screens/pdfs/UploadPdf";
+import Upload from "./screens/Upload";
+import View from "./screens/View";
 
 function App() {
   return (
@@ -18,8 +21,8 @@ function App() {
         <Route path="/" component={HomePage} exact />
         <Route path="/login" component={LoginPage} />
         <Route path="/register" component={RegisterPage} />
-        <Route path="/upload_video" component={UploadVideo} />
-        <Route path="/play_video" component={PlayVideo} />
+        <Route path="/view" component={View} />
+        <Route path="/upload" component={Upload} />
       </Container>
     </Router>
   );
