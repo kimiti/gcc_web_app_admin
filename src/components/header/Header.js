@@ -18,10 +18,10 @@ const Header = ({ logOut }) => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
               <LinkContainer to="/view">
-                <Nav.Link>Play_Videos</Nav.Link>
+                <Nav.Link>View Content</Nav.Link>
               </LinkContainer>
               <LinkContainer to="/upload">
-                <Nav.Link>Upload_Videos</Nav.Link>
+                <Nav.Link>Upload Content</Nav.Link>
               </LinkContainer>
               <LinkContainer to="/register">
                 <Nav.Link>Register</Nav.Link>
