@@ -6,7 +6,34 @@ import { logOut } from "../../actions/auth";
 
 import { connect } from "react-redux";
 
-const Header = ({ logOut }) => {
+const Header = ({ logOut, auth }) => {
+  const authLinks = (
+    <>
+
+      <LinkContainer to="/view">
+        <Nav.Link>View Content</Nav.Link>
+      </LinkContainer>
+      <LinkContainer to="/upload">
+        <Nav.Link>Upload Content</Nav.Link>
+      </LinkContainer>
+      <div onClick={logOut}>
+        <Nav.Link>Logout</Nav.Link>
+      </div>
+    </>
+  );
+  const guestLinks = (
+    <>
+
+      <LinkContainer to="/register">
+        <Nav.Link>Register</Nav.Link>
+      </LinkContainer>
+      <LinkContainer to="/login">
+        <Nav.Link>Login</Nav.Link>
+      </LinkContainer>
+    </>
+  );
+
+
   return (
     <div>
       <Navbar bg="light" expand="lg">
@@ -17,21 +44,9 @@ const Header = ({ logOut }) => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
-              <LinkContainer to="/view">
-                <Nav.Link>View Content</Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="/upload">
-                <Nav.Link>Upload Content</Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="/register">
-                <Nav.Link>Register</Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="/login">
-                <Nav.Link>Login</Nav.Link>
-              </LinkContainer>
-              <div onClick={logOut}>
-                <Nav.Link>Logout</Nav.Link>
-              </div>
+
+              {auth.uid ? authLinks : guestLinks}
+
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -40,6 +55,11 @@ const Header = ({ logOut }) => {
   );
 };
 
-// export default Header;
+const mapStateToProps = (state) => {
+  return {
+    authError: state.auth.authError,
+    auth: state.firebase.auth,
+  };
+};
 
-export default connect(null, { logOut })(Header);
+export default connect(mapStateToProps, { logOut })(Header);

@@ -1,31 +1,11 @@
 import { v4 as uuidv4 } from "uuid";
+import { GET_VIDEOS } from "./types";
 
-// export function uploadVideo(selectedFiles, videoTitle) {
-//   return (dispatch, getState, getFirebase) => {
-//     const firebase = getFirebase();
-//     console.log(firebase);
-//     const storageRef = firebase.storage().ref();
-//     const fileRef = storageRef
-//       .child("videos/" + selectedFiles.name)
-//       .put(selectedFiles)
-//       .then((snapshot) => {
-//         console.log("Uploaded a blob or file!");
-//         console.log(snapshot);
-
-//         snapshot.ref.getDownloadURL().then((url) => {
-//           console.log(url);
-//         });
-//       });
-
-//     // storageRef
-//   };
-// }
 
 // Upload Video
 export const uploadVideo =
   (selectedFiles, videoTitle) => (dispatch, getState, getFirebase) => {
     const firebase = getFirebase();
-
     const storageRef = firebase.storage().ref();
     const fileRef = storageRef
       .child(`videos/${uuidv4()}/${selectedFiles.name}`)
@@ -39,7 +19,7 @@ export const uploadVideo =
         var progress = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
-        // console.log("Upload is " + progress + "% done");
+
         dispatch({ type: "UPLOAD_PROGRESS", progress });
       },
       (error) => {
@@ -47,13 +27,30 @@ export const uploadVideo =
       },
       async () => {
         const downloadUrl = await fileRef.snapshot.ref.getDownloadURL();
-        // console.log(downloadUrl);
+
 
         await firebase.firestore().collection("videos").add({
           videoTitle: videoTitle,
           videoUrl: downloadUrl,
         });
-        // console.log("Document written with ID: ", docRef.id);
+
       }
     );
   };
+
+
+// Upload Video
+export const getVideo = () => (dispatch, getState, getFirebase) => {
+  const firebase = getFirebase();
+
+  firebase.firestore().collection("videos").get().then((querySnapshot) => {
+    const data = [];
+    querySnapshot.forEach((doc) => {
+      // console.log(doc.data());
+      // data.push(doc.data())
+      data.push({ videoTitle: doc.data().videoTitle, videoUrl: doc.data().videoUrl })
+    });
+    dispatch({ type: GET_VIDEOS, data });
+  })
+
+}

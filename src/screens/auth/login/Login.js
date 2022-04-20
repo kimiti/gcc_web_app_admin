@@ -15,6 +15,7 @@ const Login = ({ login, auth }) => {
     login(email, password);
   };
 
+  
   if (auth.uid) return <Redirect to="/" />;
   return (
     <div className="mt-5">

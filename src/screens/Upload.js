@@ -17,14 +17,15 @@ const Upload = () => {
             <Link to="/upload_video">Upload video</Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
+            <Link to="/"> Upload Sermon </Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>
             <Link to="/upload_pdf"> Upload Pdf </Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
             <Link to="/"> Upload Song </Link>
           </Breadcrumb.Item>
-          <Breadcrumb.Item>
-            <Link to="/"> Upload Sermon </Link>
-          </Breadcrumb.Item>
+
         </Breadcrumb>
         <Route path="/upload_video" component={UploadVideo} />
         <Route path="/upload_pdf" component={UploadPdf} />
