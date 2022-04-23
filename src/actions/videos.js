@@ -20,7 +20,7 @@ export const uploadVideo =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
 
-        dispatch({ type: "UPLOAD_PROGRESS", progress });
+        dispatch({ type: "UPLOAD_PROGRESS", payload: progress });
       },
       (error) => {
         // Handle unsuccessful uploads
@@ -50,7 +50,7 @@ export const getVideo = () => (dispatch, getState, getFirebase) => {
       // data.push(doc.data())
       data.push({ videoTitle: doc.data().videoTitle, videoUrl: doc.data().videoUrl })
     });
-    dispatch({ type: GET_VIDEOS, data });
+    dispatch({ type: GET_VIDEOS, payload: data });
   })
 
 }

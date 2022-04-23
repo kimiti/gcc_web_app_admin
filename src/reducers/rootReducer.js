@@ -7,7 +7,7 @@ import videoReducer from "./videoReducer";
 // Add firebase to reducers
 const rootReducer = combineReducers({
   auth: authReducer,
-  upload: videoReducer,
+  video: videoReducer,
   firebase: firebaseReducer,
 });
 

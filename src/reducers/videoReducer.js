@@ -1,4 +1,4 @@
-import { GET_VIDEOS } from "../actions/types";
+import { GET_VIDEOS, UPLOAD_PROGRESS } from "../actions/types";
 
 const initState = {
   uploadProgress: null,
@@ -6,20 +6,19 @@ const initState = {
 };
 
 const videoReducer = (state = initState, action) => {
-  switch (action.type) {
+
+  const { type, payload } = action;
+
+  switch (type) {
     case GET_VIDEOS:
-      console.log("get videos reducer");
-      // console.log(action.data);
       return {
         ...state,
-        videos: action.data,
+        videos: payload,
       };
-    case "UPLOAD_PROGRESS":
-      console.log("upload progress reducer");
-      console.log(action.progress);
+    case UPLOAD_PROGRESS:
       return {
         ...state,
-        uploadProgress: action.progress,
+        uploadProgress: payload,
       };
 
     default:

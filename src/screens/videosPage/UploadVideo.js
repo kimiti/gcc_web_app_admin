@@ -72,7 +72,7 @@ const UploadVideo = ({ uploadVideo, upload }) => {
 
 const mapStateToProps = (state) => {
   return {
-    upload: state.upload.uploadProgress,
+    upload: state.video.uploadProgress,
   };
 };
 

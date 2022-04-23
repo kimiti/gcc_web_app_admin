@@ -6,7 +6,7 @@ import { getVideo } from '../../actions/videos';
 import { connect } from "react-redux";
 
 const PlayVideo = ({ getVideo, videos }) => {
-  console.log(videos);
+  console.log(videos.msg);
   useEffect(() => {
     getVideo()
   }, [getVideo]);
@@ -17,7 +17,9 @@ const PlayVideo = ({ getVideo, videos }) => {
       <div>
         {videos.map((video) => (
           <div className="card p-3 my-2">
-            {video.videoTitle}</div>
+            {video.videoTitle}
+            </div>
+            
         ))}
       </div>
     </div>
@@ -25,7 +27,7 @@ const PlayVideo = ({ getVideo, videos }) => {
 };
 
 const mapStateToProps = (state) => ({
-  videos: state.upload.videos
+  videos: state.video.videos
 });
 
 export default connect(mapStateToProps, { getVideo })(PlayVideo);
